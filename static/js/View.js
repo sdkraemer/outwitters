@@ -515,10 +515,12 @@ MapEditor.View = (function() {
                 description: getDescription()
             }
 
+			var formData = {data: JSON.stringify(data)};
+
             $.cookie('author', "" + getAuthor(), { expires: (365*10), path: '/' });
             $("#form button").attr("disabled", "disabled");
             if(spinner) spinner.spin(target);
-            $.post("ajax/send.php", data, function(response) {
+            $.post("/game", formData, function(response) {
                 var json = JSON.parse(response);
 
                 if(json.error) {

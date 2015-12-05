@@ -35,10 +35,15 @@ print GameState.query.all()
 def index():
 	return render_template("index.html")
 	
-@app.route("/game/<int:id>")
+@app.route("/game/<int:id>", methods=['GET'])
 def getGame(id):
 	game = GameState.query.filter_by(game_state_id=id).first()
 	return game.map_state
+	
+@app.route("/game", methods=['POST'])
+def saveGame():
+	print request.form
+	return "test return"
 	
 
 if __name__ == "__main__":
