@@ -12,6 +12,7 @@ app = Flask(__name__, static_url_path='')
 #from windows cmd prompt: set APP_SETTINGS=config.DevelopmentConfig
 app.config.from_object(os.environ['APP_SETTINGS'])
 print os.environ['APP_SETTINGS']
+print os.environ['DATABASE_URL']
 
 
 #app.config['DATABASE_URL'] = 'postgres://ytwqouuptiuoln:t83695HzdbyVS7SYHONXpfGDYJ@ec2-54-204-40-209.compute-1.amazonaws.com:5432/d93uu3ukjciuo6'
