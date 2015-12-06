@@ -50,6 +50,30 @@ def saveGame():
 	print request.form
 	return "test return"
 	
+@app.route("/map/preloaded/candycoremine")
+def getCandyCoreMine():
+	return "json here:"
+	
+@app.route("/map/preloaded/sugarrock")
+def getSugarRock():
+	return "json here:"
+	
+@app.route("/map/preloaded/acrospire")
+def getAcrospire():
+	return "json here:"
+	
+@app.route("/map/preloaded/blitzbeach")
+def getBlitzBeach():
+	return "json here:"
+	
+@app.route("/map/preloaded/mechanism")
+def getMechanism():
+	return "json here:"
+	
+@app.route("/map/preloaded/machination")
+def getMachination():
+	return "json here:"
+	
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
