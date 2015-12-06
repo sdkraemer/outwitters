@@ -7,7 +7,7 @@
 	#map_state = db.Column(db.LargeBinary)
 	
 	#def __init__(self, map_state):
-		self.map_state = map_state
+	#	self.map_state = map_state
 	
 	#def __repr__(self):
 	#	return '<{}>'.format(self.map_state)

@@ -16,31 +16,36 @@ print os.environ['DATABASE_URL']
 
 db = SQLAlchemy(app)
 
-class GameState(db.Model):
-	__tablename__= 'game_state'
+class Map(db.Model):
+	__tablename__= 'map'
 	
-	game_state_id = db.Column(db.Integer, primary_key=True)
-	map_state = db.Column(db.LargeBinary)
+	id = db.Column(db.Integer, primary_key=True)
+	state = db.Column(db.LargeBinary)
+	name = db.Column(db.Text)
+	author = db.Column(db.Text)
+	is_preloaded = db.Column(db.Boolean)
 	
-	def __init__(self, map_state):
-		self.map_state = map_state
+	def __init__(self, state, name, author, is_preloaded):
+		self.state = state
+		self.name = name
+		self.author = author
+		self.is_preloaded = is_preloaded
 	
 	def __repr__(self):
-		return '<{}>'.format(self.map_state)
+		return '<state - {}>'.format(self.state)
 		
-print GameState.query.all()
 
 
 @app.route("/")
 def index():
 	return render_template("index.html")
 	
-@app.route("/game/<int:id>", methods=['GET'])
-def getGame(id):
-	game = GameState.query.filter_by(game_state_id=id).first()
-	return game.map_state
+@app.route("/map/<int:id>", methods=['GET'])
+def getMap(id):
+	map = Map.query.filter_by(id=id).first()
+	return map.state
 	
-@app.route("/game", methods=['POST'])
+@app.route("/map", methods=['POST'])
 def saveGame():
 	print request.form
 	return "test return"
