@@ -52,27 +52,33 @@ def saveGame():
 	
 @app.route("/map/preloaded/candycoremine")
 def getCandyCoreMine():
-	return "json here:"
+	map = Map.query.filter_by(name="Candy Core Mine", is_preloaded=True).first()
+	return map.state
 	
 @app.route("/map/preloaded/sugarrock")
 def getSugarRock():
-	return "json here:"
+	map = Map.query.filter_by(name="Sugar Rock", is_preloaded=True).first()
+	return map.state
 	
 @app.route("/map/preloaded/acrospire")
 def getAcrospire():
-	return "json here:"
+	map = Map.query.filter_by(name="Acrospire", is_preloaded=True).first()
+	return map.state
 	
 @app.route("/map/preloaded/blitzbeach")
 def getBlitzBeach():
-	return "json here:"
+	map = Map.query.filter_by(name="Blitz Beach", is_preloaded=True).first()
+	return map.state
 	
 @app.route("/map/preloaded/mechanism")
 def getMechanism():
-	return "json here:"
+	map = Map.query.filter_by(name="Mechanism", is_preloaded=True).first()
+	return map.state
 	
 @app.route("/map/preloaded/machination")
 def getMachination():
-	return "json here:"
+	map = Map.query.filter_by(name="Machination", is_preloaded=True).first()
+	return map.state
 	
 
 if __name__ == "__main__":
