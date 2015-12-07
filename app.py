@@ -4,8 +4,22 @@ import psycopg2
 import urlparse
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy 
+from functools import wraps
 
 app = Flask(__name__, static_url_path='')
+app.secret_key = "my key"
+
+#login required decorator
+def login_required(f):
+	@wraps(f)
+	def wrap(*args, **kwargs):
+		if 'logged_in' in session:
+			return f(*args, **kwargs)
+		else:
+			flash('You need to login first.')
+			return redirect(url_for('login'))
+	return wrap
+
 
 # config
 #from windows cmd prompt: set APP_SETTINGS=config.DevelopmentConfig
@@ -37,6 +51,7 @@ class Map(db.Model):
 
 
 @app.route("/")
+@login_required
 def index():
 	return render_template("index.html")
 	
@@ -79,6 +94,25 @@ def getMechanism():
 def getMachination():
 	map = Map.query.filter_by(name="Machination", is_preloaded=True).first()
 	return map.state
+	
+@app.route('/login', methods=['GET','POST'])
+def login():
+	error = None
+	if request.method == 'POST':
+		if request.form['username'] != 'admin' or request.form['password'] != 'admin':
+			error = 'Invalid credentials. admin/admin are the credentials.'
+		else:
+			session['logged_in'] = True
+			flash('You were just logged in!')
+			return redirect(url_for('index'))
+	return render_template('login.html', error=error)
+	
+@app.route('/logout')
+@login_required
+def logout():
+	session.pop('logged_in',None)
+	flash('You were just logged out!')
+	return redirect(url_for('welcome'))
 	
 
 if __name__ == "__main__":
